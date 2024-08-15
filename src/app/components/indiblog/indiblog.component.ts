@@ -22,20 +22,27 @@ export class IndiblogComponent {
     private blogService: BlogService
   ) {
 
-    // afterNextRender(() => {
-    //   // Safe to check `scrollHeight` because this will only run in the browser, not the server.
-    //   console.log('afterNextRender called');
-    // });
-    // afterRender(() => {
-    //   // Safe to check `scrollHeight` because this will only run in the browser, not the server.
-    //   console.log('afterRender called');
-    // });
+    afterNextRender(() => {
+      // Safe to check `scrollHeight` because this will only run in the browser, not the server.
+      navigator.geolocation.getCurrentPosition((position)=>{
+        console.log(position.coords.latitude,position.coords.longitude)
+      });
+      console.log('afterNextRender called');
+    });
+    afterRender(() => {
+      // Safe to check `scrollHeight` because this will only run in the browser, not the server.
+      console.log('afterRender called');
+    });
   }
 
   ngOnInit() {
     const blogId = this.route.snapshot.paramMap.get('id')!;
     this.blog$ = this.blogService.getBlogById(blogId);
     // localStorage.setItem("test","sds")
+
+
+
+
   }
 
   handleCopy(){
